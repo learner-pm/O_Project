@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script>
+    // react
+    // xiangmu
+    // suanfa
+      // const a ={
+      //   e:10,
+      //   b:{
+      //     d:10,
+      //     c:()=>{
+      //       console.log(this)
+      //     },
+      //     g:function(){
+      //       console.log(this)
+      //     }
+      //   },
+      //   f:()=>{
+      //     console.log(this)
+      //   }
+      // }
+      // a.b.c()
+      // const fun =a.b.c
+      // fun()
+  </script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+</head>
+
+<body>
+  <div id="app">
+    app:
+    <p>a的值为： {a}</p>
+    第一个三元表达式a==10 ? a : 10-a值为：{a==0 ? 'a' : 10-a}
+    <div click="appGetA()">
+      b的值是：{b}
+      <p>
+        <span>b++ </span>
+      </p>
+    </div>
+
+    <span>span里面的b: {b},a:{a},</span>
+    <button click="getA">a</button>
+  </div>
+  <demo></demo>
+  <com></com>
+  <div id="test">
+    下面是测试生成的demo
+    <hr>
+  </div>
+
+  <script type="module">
+    import Vaios from "./core/index.js";
+    const regs = /\w/
+    // console.log(regs.test('d'))
+    //一个算法，找出一段字符串中所有连续不间断的子字符串
+    //dasd45'a'a55 -> dasd a a===5?'ss':a+5
+    const funStr = "a===5?'ss':a+5";
+    const findStr = (str) => {
+      //a ->97 z ->122 A ->65 Z ->90
+      const arr = {
+        str: [],
+        sym: []
+      };
+      let result = "";
+      for (let i = 0; i < str.length; i++) {
+        const nowChar = str.charCodeAt(i);
+        const reg = /\w/
+        if (
+          reg.test(str[i])
+          // (nowChar >= 97 && nowChar <= 122) ||
+          // (nowChar >= 65 && nowChar <= 90)
+        ) {
+          if ((str.charCodeAt(i - 1) === 39 && str.charCodeAt(i + 1) === 39)) {
+            arr.sym.push(`'${str[i]}'`)
+          }
+          else result += str[i];
+        } else {
+          result.length !== 0 && arr.str.push(result);
+          result = "";
+        }
+      }
+      return arr;
+    };
+    //console.log(findStr(funStr));
+    const data = {
+      a: 1,
+      b: 10,
+    };
+    let _str = "a的值是:{a},b的值是：{b}";
+    const reg = /\{((?:.|\n)+?)\}/;
+    const regG = /\{((?:.|\n)+?)\}/g;
+    let demo = ``;
+    if (reg.test(_str)) {
+      _str.match(regG).forEach((e) => {
+        const att = e.replace(/\{/, "").replace(/\}/, "");
+        const sym = "${data." + e.replace(/\{/, "").replace(/\}/, "") + "}";
+        _str = _str.replace(e, sym);
+      });
+    }
+    const templte = "`" + _str + "`";
+    const complile = eval(templte);
+    //console.log(eval(templte));
+    setTimeout(() => {
+      data.b = 10000;
+      data.a = 10000;
+      //console.log(eval(templte));
+    }, 1000);
+
+    const str = "you get a number {a}";
+    const arr = str.split("{");
+    const arr1 = arr[1].split("}");
+    const obja = {
+      a: 10,
+    };
+    const con = `${arr[0]}${obja[arr1[0]]}${arr1[1]} `;
+    //console.log(con);
+    const methods = {
+      appGetA() {
+        this.proxy.b = 10;
+        setTimeout(() => {
+          this.proxy.a = 100;
+          //console.log(this.a);
+        }, 1000);
+        //console.log(this.a);
+        this.dep;
+      },
+    };
+    const obj = {
+      creatComponent() { },
+    };
+    console.log();
+    const vaios = new Vaios(
+      {
+        //根组件
+        data: {
+          a: 0,
+          b: 1,
+          ac: -1,
+          c: false,
+          flag: true,
+          h: true,
+        },
+        beforeComponent() {
+          //console.log("在开始生成组件之前");
+        },
+        updateComponent() {
+          //console.log("更新数据");
+          //console.log(this);
+        },
+        methods,
+      },
+      "app"
+    );
+    console.log(vaios)
+    //console.log(vaios);
+    // vaios.creatComponent({
+    //   name: "com",
+    //   template: `<div id='com'>
+    //         子组件com
+    //       {a}
+    //         <p>a<p/>
+    //         </div>`,
+    //   data: {
+    //     a: -1,
+    //   },
+    // });
+    // const deom = vaios.creatComponent(
+    //   //生成子组件 加入模板
+    //   {
+    //     name: "demo",
+    //     template: `<div id="demo">
+    //                 <p>这是子组件deom</p>
+    //                   子组件的变量c:{c}
+    //                   孙子组件:<come></come>
+    //                   <span>这是变量a，当c>10是a即将改变：{a}<span>
+    //                 <button click="childGetA">子组件c变量 {c} ++</button>
+    //               </div>`,
+    //     data: {
+    //       a: 0,
+    //       c: 0,
+    //       flag: undefined,
+    //     },
+    //     updateComponent() {
+    //       //console.log(this.c);
+    //     },
+    //     methods: {
+    //       childGetA() {
+    //         if (this.proxy.flag) {
+    //           clearInterval(this.proxy.flaggi);
+    //           this.proxy.flag = undefined;
+    //           return;
+    //         }
+    //         //this.proxy.c ++
+    //         this.proxy.flag = setInterval(() => {
+    //           this.proxy.c++;
+    //           if (this.proxy.c > 10) this.proxy.a = this.proxy.c;
+    //         }, 1000);
+    //         console.log(this);
+    //       },
+    //     },
+    //   }
+    // );
+    // //console.log(deom);
+    // deom.creatComponent({
+    //   name: "come",
+    //   template: `<div id='come'>
+    //       deom组件下的子组件
+    //       {a}</div>`,
+    //   data: {
+    //     a: 1000,
+    //   },
+    // });
+      //console.log(vaios);
+  </script>
+</body>
+
+</html>

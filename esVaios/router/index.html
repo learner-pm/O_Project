@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<script src="./router.js"></script>
+
+<body>
+  <div id="root">
+    <a href="#/one">one c</a><br>
+    <a href="#/two">two c</a><br>
+    <a href="#/three">three c</a><br>
+    <span>容器</span>
+    <div id="conton">
+
+    </div><br>
+    <br>
+    <button onclick="push()"> push / one /</button>
+    <div id="one">
+      one 组件
+    </div>
+    <div id="two">
+      two 组件
+    </div>
+    <div id="three">
+      three 组件
+    </div>
+  </div>
+  <script>
+    // blog react vue l san
+    const router = new Router({
+      mode: 'hash',
+      routes: [
+        {
+          path: '/one',
+          components: 'one'
+        },
+        {
+          path: '/two',
+          components: 'one'
+        },
+        {
+          path: '/three',
+          components: 'one'
+        }
+      ]
+    })
+    const push = () => {
+      router.push('/one/index')
+    }
+    const view = new ViewProxy("#app", {
+      a: 10,
+      b: 1000,
+    }, {
+      aFun() {
+        console.log(11)
+        this.a++
+        if (this.a > 10) this.b = this.a
+        console.log(this)
+        this.bFun()
+      }, bFun() {
+        this.b = 0
+      }
+    });
+  </script>
+</body>
+
+</html>
