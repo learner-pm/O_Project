@@ -1,4 +1,5 @@
 import { propsChange, addProps } from "./helper/entry";
+import cmopileTe from "./compile";
 
 class Vaios {
   constructor(props) {
@@ -7,7 +8,9 @@ class Vaios {
     this.init(props);
   }
   init(props) {
-    addProps(props, this);
+    const { el, data } = props;
+    addProps(props, this); //把属性添加到对象上
+    cmopileTe(el, data, this);
   }
 }
 
