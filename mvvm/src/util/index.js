@@ -22,5 +22,5 @@ export function setText(dom, text) {
   dom.textContent = text;
 }
 
-export const reg = /\{((?:.|\n)+?)\}/;
-export const regG = /\{((?:.|\n)+?)\}/g;
+export const isVar = /\{((?:.|\n)+?)\}/;
+export const varG = /\{((?:.|\n)+?)\}/g;
