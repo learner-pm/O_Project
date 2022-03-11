@@ -1,10 +1,15 @@
-import { forEach, isVar, root } from "../util/index";
+import { forEach, root } from "../util/index";
+import { isText } from "./toText";
+import { isDom } from "./toDom";
 
-const componentData = {};
+const getVarArr = {
+  data: {},
+  arr: [],
+}; //收集依赖
+
 const cmopileTe = (id, data, component) => {
   const rootDom = root(id);
-  Object.assign(componentData, data);
-
+  Object.assign(getVarArr.data, data);
   lookAllDom(rootDom, component);
 };
 
@@ -12,12 +17,13 @@ const lookAllDom = (dom, component) => {
   forEach(Array.from(dom.childNodes), (nodes) => {
     switch (nodes.nodeType) {
       case 1:
+        isDom(nodes, getVarArr.data, component);
         lookAllDom(nodes, component);
         break;
-      case 3:
-        isText(nodes, component);
+      case 3: //递归终止条件
+        isText(nodes, getVarArr, component);
         break;
-      case 8:
+      case 8: //递归终止条件
         break;
       default:
         lookAllDom(nodes, component);
@@ -25,20 +31,5 @@ const lookAllDom = (dom, component) => {
   });
 };
 
-const getVarArr = []; //收集依赖
-const isText = (text, component) => {
-  const _dom = text;
-  const _text = text.nodeValue;
-  if (!isVar.test(_text)) return;
-  getVarArr.push({
-    _dom,
-    _text,
-  });
-  //console.log(isVar.test(text.nodeValue));
-  Object.keys(componentData).forEach((e) => {
-    if (text.nodeValue.includes(e)) text.textContent = componentData[e];
-  });
-  component["varArr"] = getVarArr;
-};
 export { getVarArr };
 export default cmopileTe;

@@ -4,6 +4,8 @@ const vaios = new Vaios({
   el: "app",
   data: {
     mes: "hello",
+    zero: 0,
+    three: "dsdsadsadsadsadas3",
   },
 });
 

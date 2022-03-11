@@ -1,0 +1,3 @@
+const isDom = () => {};
+
+export { isDom };

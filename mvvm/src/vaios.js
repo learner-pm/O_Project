@@ -1,5 +1,5 @@
 import { propsChange, addProps } from "./helper/entry";
-import cmopileTe from "./compile";
+import cmopileTe, { getVarArr } from "./compile";
 
 class Vaios {
   constructor(props) {
