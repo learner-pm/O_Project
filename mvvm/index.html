@@ -2,19 +2,25 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
 </head>
 
 <body>
   <div id="app">
-    <p>one <span> 这是mes的值：{mes},zero:{zero}</span></p>
+    <p>
+      one
+      <span> mes的值是：{mes}</span>
+      <br>
+      zero得值是:{zero}
+    </p>
+    <button click="getZero()">{zero}++</button>
 
     <p>two zero:{zero}</p>
-    <p>three
-
+    <p>
+      three
       <span>{three}</span>
     </p>
   </div>

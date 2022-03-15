@@ -14,7 +14,9 @@ const propsChange = (obj) => {
 
 const addProps = (proto, obj) => {
   Object.keys(proto).forEach((e) => {
+    // obj[e.toString()] = proto[e];
     obj[e] = proto[e];
+    // console.log(proto[e]);
   });
 };
 export { propsChange, addProps };
