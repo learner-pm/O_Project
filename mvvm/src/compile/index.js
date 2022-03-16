@@ -19,7 +19,7 @@ class Compile {
     forEach(Array.from(dom.childNodes), (nodes) => {
       switch (nodes.nodeType) {
         case 1: //dom
-          isDom(nodes, component, methods);
+          isDom(nodes, component, methods, getVarArr);
           this.lookAllDom(nodes, component);
           break;
         case 3: //text
