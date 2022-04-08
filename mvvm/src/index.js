@@ -10,6 +10,7 @@ const vaios = new Vaios({
   methods: {
     //方法的绑定
     getZero() {
+      console.log(this);
       this.zero++;
       this.mes += this.zero;
       console.log(this.zero);

@@ -44,7 +44,7 @@ class Observer {
         target[key] = value;
         observer.pud.nostiy(key, value);
         // component updated
-        console.log(`value ${key} is ${value} now`);
+        //console.log(`value ${key} is ${value} now`);
         return true;
       },
     });
